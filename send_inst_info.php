@@ -43,7 +43,9 @@
 
     $data = $instagram_photos_arr;
 
-    curl_setopt($ch, CURLOPT_URL, 'http://URLTOYORWEBAPI/get_inst_info.php');
+    $uid=hash('sha1',$flickr_API.'G'.$flickr_uid);
+
+    curl_setopt($ch, CURLOPT_URL, $host_url.'get_inst_info.php?uid='.$uid);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_SAFE_UPLOAD, false); // requis à partir de PHP 5.6.0 
     curl_setopt($ch, CURLOPT_POSTFIELDS, build_post_fields($data));

@@ -4,10 +4,12 @@
     if(!isset($_GET['id'])){
         print('No ID !');
         exit();
-    }
-
-    if(!empty($_GET['id'])){
-        $p_id = $_GET['id'];
+    }else{
+        if(!empty($_GET['id'])){
+            $p_id = $_GET['id'];
+        }else{
+            ReturnError(404);
+        }
     }
 
     /////////////////////////////////////// FLICKR API ///////////////////////////////////////
@@ -15,8 +17,25 @@
     $flickr_api_json=json_decode($flickr_api_req,true);
     
     if(!isset($flickr_api_req) or empty($flickr_api_req)){
-        print('Error, Flickr API not responding');
-        exit;
+        ReturnError(404);
+    }
+
+    $found=0;
+    foreach($flickr_api_json['photos']['photo'] as $key => $val){
+        if($p_id==$val['id']){
+            $found=1;
+        }
+    }
+    if($found==0){
+        print('
+            <meta property="og:site_name" content="GPic - View" >
+            <meta property="og:title" content="404 Picture not found" />
+            <meta property="og:image" content="'.$host_url.'res/logo_gpic.png" />
+            
+            <meta name="theme-color" content="#FF0000" />
+        ');
+
+        ReturnError(404);
     }
     
     $flickr_nb_photos=$flickr_api_json['photos']['total'];
@@ -66,10 +85,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.1.1">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="res/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="res/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="res/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="res/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="res/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="res/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="res/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="res/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="res/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="res/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="res/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="res/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="res/favicon/favicon-16x16.png">
+	<meta name="msapplication-TileImage" content="res/favicon/ms-icon-144x144.png">
+	<link rel="shortcut icon" href="res/favicon/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="css/bootstrap.min.css" >
     <link rel="stylesheet" href="css/album.css" >
@@ -136,9 +167,8 @@
                                     $prev_btn='
                                         <div class="prev_btn">
                                             <a href="pic?id='.$prev_img_uid['id'].'">
-                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-left-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                                    <path fill-rule="evenodd" d="M10.205 12.456A.5.5 0 0 0 10.5 12V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4a.5.5 0 0 0 .537.082z"/>
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.354 10.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L6.207 7.5H11a.5.5 0 0 1 0 1H6.207l2.147 2.146z"/>
                                                 </svg>
                                             </a>
                                         </div>
@@ -153,9 +183,8 @@
                                     $next_btn='
                                         <div class="next_btn">
                                             <a href="pic?id='.$next_img_uid['id'].'">
-                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-right-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                                    <path fill-rule="evenodd" d="M5.795 12.456A.5.5 0 0 1 5.5 12V4a.5.5 0 0 1 .832-.374l4.5 4a.5.5 0 0 1 0 .748l-4.5 4a.5.5 0 0 1-.537.082z"/>
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm5.646 10.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L9.793 7.5H5a.5.5 0 0 0 0 1h4.793l-2.147 2.146z"/>
                                                 </svg>
                                             </a>
                                         </div>
@@ -197,9 +226,9 @@
                                 }
                                
                                 if($Pic_Exif['exif']['Flash']=="Off, Did not fire"){
-                                    $Flash="📷 Off";
+                                    $Flash="⚡ Off";
                                 }else{
-                                    $Flash="📸 On";
+                                    $Flash="⚡ On";
                                 }
 
                                 if($p_height>2000 & $p_width<3300){
@@ -289,7 +318,7 @@
                                                                 '.$Flash.'
                                                             </td>
                                                             <td>
-                                                                
+                                                                📅 '.date("d/m/Y - H:i",$Pic_Inf['date']['date_taken']).'
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -345,7 +374,7 @@
     <?php require_once('res/bottom.php'); ?>
 
     <?php
-        $str_content="📷 ".$Pic_Exif["exif"]["Model"]." (".$Soft.")\n &nbsp; ⭕ ƒ/".$Pic_Exif["exif"]["Aperture"]." - 👁 ".$Pic_Exif["exif"]["Focal Length"]."\n &nbsp; ⏱️ ".$Pic_Exif["exif"]["Exposure"]." - ISO ".$Pic_Exif["exif"]["ISO Speed"]."\n &nbsp; 📅 ".date("d/m/Y H:i",$Pic_Inf['date']['date_taken']);
+        $str_content="📷 ".$Pic_Exif["exif"]["Model"]." (".$Soft.")\n &nbsp; ⭕ ƒ/".$Pic_Exif["exif"]["Aperture"]." - 👁 ".$Pic_Exif["exif"]["Focal Length"]."\n &nbsp; ⏱️ ".$Pic_Exif["exif"]["Exposure"]." - ISO ".$Pic_Exif["exif"]["ISO Speed"]."\n &nbsp; 📅 ".date("d/m/Y - H:i",$Pic_Inf['date']['date_taken']);
 
         print('
             <meta property="og:site_name" content="GPic - Viewer" >

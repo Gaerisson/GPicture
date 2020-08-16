@@ -1,6 +1,9 @@
 .navbar {
     border: 1px solid rgba(0, 0, 0, 0.35);
     border-width: 0px 0px 2px 0px;
+
+    z-index: 100;
+    position: relative;
 }
 
 .card-img-top{
@@ -18,6 +21,9 @@
     background-color: rgba(29, 77, 170, 0.77);
     color: white;
     border-radius: 0px;
+
+    z-index: 100;
+    position: relative;
 }
 
 .float-right svg {
@@ -25,11 +31,11 @@
     color: white;
 }
 
-.container h1,.container h3 {
+.container h1 {
     text-shadow: 0px 5px 5px rgb(0, 0, 0);
 }
 
-.pic_nb{
+/* .pic_nb{
     display: inline-block;
     background-color: rgba(49, 49, 49, 0.57);
     padding: 5px 7px;
@@ -47,7 +53,7 @@
     text-align: center;
     border: 1px solid #2f2f2f;
     border-width: 1px 0px 1px 1px;
-}
+} */
 
 .col-md-auto{
     transition: all 0.5s ease-out;
@@ -65,10 +71,15 @@
 }
 
 .gpic_img img {
-    border-radius: calc(.25rem - 1px);
-    filter: saturate(100%);
+    border-radius: 3px;
+    /* filter: saturate(100%); */
     transition: all 0.5s ease-out;
     /* width: 22rem; */
+}
+
+.gpic_img:hover img {
+    /* filter: saturate(150%) !important; */
+    transition: all 0.5s ease-out;
 }
 
 .gpic_img .card-body {
@@ -80,8 +91,8 @@
     bottom: 0px;
     width: 100%;
     color: white;
-    height: 0rem;
-    border-radius: calc(.25rem - 1px);
+    height: 2rem;
+    border-radius: 3px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
@@ -89,8 +100,10 @@
 .gpic_img:hover .card-body {
     opacity: 1;
     transition: all 0.5s ease-out;
-    height: 2rem;
-    background-color: rgba(29, 77, 170, 0.77) !important;
+}
+
+.progressive,.progressive:hover {
+    transition: all 0.5s ease-out;
 }
 
 .gpic_img .card-title {
@@ -107,7 +120,7 @@
     width: 100%;
     color: white;
     height: 0%;
-    border-radius: calc(.25rem - 1px);
+    border-radius: 3px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
@@ -121,13 +134,6 @@
 .gpic_img .card-title2 {
     font-size: 20px;
     font-weight: 700;
-}
-
-
-
-.gpic_img:hover img {
-    filter: saturate(150%) !important;
-    transition: all 0.5s ease-out;
 }
 
 .followme {
@@ -155,11 +161,13 @@
     width: 40px;
     display:inline-block;
     filter: grayscale(65%);
+    filter: saturate(0%);
 }
 
 .followme img:hover {
     transition: all 0.5s ease-out;
     filter: grayscale(0%);
+    filter: saturate(150%);
 }
 
 /* PIC.PHP */
@@ -180,7 +188,7 @@
 .img_view img {
     vertical-align: middle;
     border-style: none;
-    border-radius: 15px;
+    border-radius: 5px;
 
     -webkit-box-shadow: 1px 1px 10px -1px rgba(0,0,0,0.79);
     -moz-box-shadow: 1px 1px 10px -1px rgba(0,0,0,0.79);
@@ -191,7 +199,7 @@ figure.containerZoom {
     -webkit-box-shadow: 1px 1px 10px -1px rgba(0,0,0,0.79);
     -moz-box-shadow: 1px 1px 10px -1px rgba(0,0,0,0.79);
     box-shadow: 1px 1px 10px -1px rgba(0,0,0,0.79);
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 .exif_view {
@@ -236,7 +244,7 @@ hr {
     height: 100%;
     right: 0px;
     padding: 16px;
-    border-radius: 15px;
+    border-radius: 5px;
     color: white;
     font-size: 13px;
     margin: 10px 0px -5px 0px;
@@ -296,15 +304,34 @@ footer{
 .prev_btn {
     display: inline-block;
     background-color: rgba(0, 0, 0, 0.51);
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
     border-radius: 10px;
+    font-size: 35px;
+    margin: -30px;
+    position: relative;
+    right: 15px;
+    top: -20px;
+}
+
+.prev_btn a,.next_btn a{
+    color:white;
+    transition: all 1.5s ease-out;
+}
+
+.prev_btn a:hover,.next_btn a:hover{
+    color:rgba(29, 77, 170, 0.77);
+    transition: all 0.3s ease-out;
 }
 
 .next_btn {
     display: inline-block;
     background-color: rgba(0, 0, 0, 0.51);
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
     border-radius: 10px;
+    font-size: 35px;
+    margin: -30px;
+    position: relative;
+    left: 15px;
 }
 
 .blur {
@@ -312,7 +339,7 @@ footer{
     height: 100%;
     position: fixed;
     z-index: -1000;
-    filter: blur(10px) grayscale(100%);
+    filter: blur(5px) grayscale(100%);
     background-repeat: no-repeat;
 
     background-attachment: fixed;

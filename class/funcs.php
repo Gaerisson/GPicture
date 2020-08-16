@@ -81,4 +81,11 @@ function build_post_fields( $data,$existingKeys='',&$returnArray=[]){
     }
 }
 
+function ReturnError($code){
+    // header('HTTP/1.1 '.$code.' Not Found');
+    // $_GET['e'] = $code;
+    include 'res/error/'.$code.'.php';
+    exit();    
+}
+
 ?>
