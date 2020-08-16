@@ -12,8 +12,6 @@
 
     $flickr_nb_photos=$flickr_api_json['photos']['total'];
     ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // $instagram_photos_arr=json_decode(file_get_contents('instagram_data.json'),true);
 ?>
 
 <!DOCTYPE html>
@@ -97,23 +95,9 @@
                                 $p_thumbnail=str_replace('_o.jpg','_b.jpg',$data['url_o']);
                                 $p_tiny=str_replace('_o.jpg','_m.jpg',$data['url_o']);
                                 if($i<=1){
-                                    // $p_url=$data['url_o'];
                                     $p_url=$p_thumbnail;
                                 }
-
-                                // $Pic_Inf=(GetPicInf($p_id));
-                                // $Hid = hash('sha1',strtotime(date("d/m/Y H:i:s",$Pic_Inf['date']['date_taken'])).$p_title_wh_ext);
                                 
-                                // $p_height=$data['height_o'];
-                                // $p_width=$data['width_o'];
-
-                                // if($instagram_photos_arr[$Hid]){
-                                //     $linked_inst='
-                                //     <div class="card-body2">
-                                //         <center><h5 class="card-title2">Linked</h5></center>
-                                //     </div>';
-                                // }
-
                                 print('
                                 <a style="height: 100%;">
                                     <div  class="col-md-auto" style="height: 100%;cursor:pointer;">

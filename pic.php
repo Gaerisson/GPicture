@@ -59,7 +59,6 @@
         $instagram_photos_arr=array();
     }
     
-
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +116,6 @@
             <div style="padding: 10px;margin: 0px 3%;">
                 <div class="row"> -->
                     <?php
-                        // print_r($flickr_api_json['photos']['photo']);
                         foreach($flickr_api_json['photos']['photo'] as $i => $data){
                             if($p_id==$data['id']){
                                 $desc="";
@@ -183,11 +181,9 @@
                                 if(!isset($Pic_Exif['exif']['Focal Length'])){$Pic_Exif['exif']['Focal Length']=$unknown_str;}
                                 if(!isset($Pic_Exif['exif']['Aperture'])){$Pic_Exif['exif']['Aperture']=$unknown_str;}
                                 if(!isset($Pic_Exif['exif']['ISO Speed'])){$Pic_Exif['exif']['ISO Speed']=$unknown_str;}
-                                // if(!isset($Pic_Exif['exif']['Aperture'])){$Pic_Exif['exif']['Aperture']=$unknown_str;}
 
                                 $Hid = hash('sha1',strtotime(date("d/m/Y H:i:s",$Pic_Inf['date']['date_taken'])).$p_title_wh_ext);
-                                // print(date("d/m/Y H:i:s",$Pic_Inf['date']['date_taken']));
-                                // print($Hid);
+
                                 if(isset($instagram_photos_arr[$Hid])){
                                     $flickr_instagram_link=($instagram_photos_arr[$Hid]);
                                 }else{
@@ -195,8 +191,6 @@
                                 }
 
                                 if($flickr_instagram_link!==0){
-                                    // print('Linked with Instagram <br>');
-                                    // print_r($flickr_instagram_link);
                                     $desc="Description\n".$flickr_instagram_link['desc'];
                                     $inst_url_t="Insta: ".$flickr_instagram_link['url']."\n";
                                     $inst_url=$flickr_instagram_link['url'];
@@ -351,7 +345,7 @@
     <?php require_once('res/bottom.php'); ?>
 
     <?php
-        $str_content="📷 ".$Pic_Exif["exif"]["Model"]." (".$Soft.")\n &nbsp; ⭕ ƒ/".$Pic_Exif["exif"]["Aperture"]." - 👁 ".$Pic_Exif["exif"]["Focal Length"]."\n &nbsp; ⏱️ ".$Pic_Exif["exif"]["Exposure"]." - ISO ".$Pic_Exif["exif"]["ISO Speed"];
+        $str_content="📷 ".$Pic_Exif["exif"]["Model"]." (".$Soft.")\n &nbsp; ⭕ ƒ/".$Pic_Exif["exif"]["Aperture"]." - 👁 ".$Pic_Exif["exif"]["Focal Length"]."\n &nbsp; ⏱️ ".$Pic_Exif["exif"]["Exposure"]." - ISO ".$Pic_Exif["exif"]["ISO Speed"]."\n &nbsp; 📅 ".date("d/m/Y H:i",$Pic_Inf['date']['date_taken']);
 
         print('
             <meta property="og:site_name" content="GPic - Viewer" >
